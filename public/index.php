@@ -1,4 +1,7 @@
 <?php
+// Autoloading und Composer laden
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $cookieParams = [
     'lifetime' => 0,                  // Cookie bis Browser geschlossen
     'path' => '/',                     // Gültig für die ganze Website
@@ -10,7 +13,15 @@ $cookieParams = [
 session_set_cookie_params($cookieParams);
 session_start();
 
-// Autoloading und Composer laden
-require_once __DIR__ . '/../vendor/autoload.php';
+use App\Core\Container;
+use App\Router\Router;
+use App\Router\RouteConfig;
+$rotueConfig = new RouteConfig();
+$container = new Container;
+$router = Router::getInstance($rotueConfig->getRoutes(),$container);
 
-echo 'Start Seite';
+// URL der Anfrage
+$request = $_SERVER['REQUEST_URI'];
+
+// Routing aufrufen
+$router->resolve($request);
