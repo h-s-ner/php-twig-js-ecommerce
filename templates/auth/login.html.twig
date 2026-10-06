@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+{% include 'includes/_errors.html.twig' with { errors } %}
+<div class="container p-5">
+    <div class="row">
+        <div class="col col-lg-6 col-sm-12 offset-lg-3 ">
+            <form action="" method="POST">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input  type="text" class="form-control" id="email"
+                            name="email"
+                            value="{{ email|escape }}"
+                    >
+                </div>
+                <div class="mb-3">
+                    <label for="Password" class="form-label">Password:</label>
+                    <input  type="password" class="form-control"
+                            id="Password" name="password"
+                            value="{{ password|escape }}"
+                    >
+                </div>
+
+                <span>
+                <button type="submit" class="btn btn-primary w-100" name="login">Login</button>
+            </form>
+            <a class="d-block mt-2 text-decoration-none" href="/register">Neu Hier? Register</a>
+        </div>
+    </div>
+</div>
+{% endblock main %}

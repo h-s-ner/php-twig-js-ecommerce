@@ -16,6 +16,7 @@ class View
             'cache' => false,
             'debug' => true,
         ]);
+        $this->twig->addGlobal('role', Auth::getRole());
     }
     // Template rendern und Daten übergeben
     public function render(string $template, array $data = []): void
