@@ -1,0 +1,12 @@
+{% for message in flashmessages %}
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-6 col-sm-12 offset-lg-3 ">
+                <div class="alert alert-primary  alert-dismissible alert-messages fade show" role="alert" tabindex="-1">
+                    {{ message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

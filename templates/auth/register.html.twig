@@ -28,7 +28,7 @@
           <label for="Password" class="form-label">Password:</label>
           <input type="password" class="form-control" id="Password" name="password" value="{{ password|escape }}">
         </div>
-
+         {{ csrf_input('register') }}
         <button type="submit" class="btn btn-primary" name="register">Register</button>
         </div>
       </form>

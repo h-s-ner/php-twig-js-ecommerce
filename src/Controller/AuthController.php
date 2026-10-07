@@ -1,9 +1,10 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Frontend;
 
 use App\Core\Auth;
 use App\Core\View;
 use App\Core\Middleware;
+use App\Core\Flashmessages;
 use App\Service\AuthService;
 
 class AuthController{
@@ -16,12 +17,12 @@ class AuthController{
 
     public function loginIndex(): void
     {
-
+        Middleware::requireGuest();
         $data = [
             'title' => 'Login',
             'errors' => [],
             'email' => '',
-
+            'flashmessages' => Flashmessages::getMessages('login')
         ];
 
         $this->view->render('auth/login.html.twig', $data);
@@ -29,15 +30,16 @@ class AuthController{
 
     public function login(): void
     {
+        Middleware::requireGuest();
         $data = [
             'title' => 'Login',
             'errors' => [],
             'email' => '',
-
+            'flashmessages' => Flashmessages::getMessages('login')
         ];
         if (isset($_POST['login']))
         {
-
+            Middleware::validateCsrfToken('login');
             $response = $this->authService->login($_POST);
             if ($response === true)
             {
@@ -54,14 +56,14 @@ class AuthController{
                 'title' => 'Login',
                 'errors' => $errors,
                 'email' => $response['email'] ?? '',
-
+                'flashmessages' => Flashmessages::getMessages('login')
             ];
         }
         $this->view->render('auth/login.html.twig', $data);
     }
+
     public function registerIndex(): void
     {
-
         $data = [
             'title' => 'Register',
             'fname' => '',
@@ -85,7 +87,7 @@ class AuthController{
 
         if (isset($_POST['register']))
         {
-
+            Middleware::validateCsrfToken('register');
             $response = $this->authService->register($_POST);
             if (is_array($response))
             {
@@ -102,7 +104,6 @@ class AuthController{
             }
             else
             {
-
                 header('Location: /login');
                 exit;
             }
@@ -111,6 +112,7 @@ class AuthController{
     }
     public function logout():void
     {
+        Middleware::validateCsrfToken('logout');
         $this->authService->logout();
     }
 }

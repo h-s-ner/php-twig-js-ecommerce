@@ -14,6 +14,9 @@
 <body class="position-relative">
     {% include 'includes/_nav.html.twig' %}
     <main class="mt-5 pt-5">
+        {% block flashmessages %}
+            {% include 'includes/_flashmessages.html.twig' with { flashmessages } %}
+        {% endblock flashmessages %}
         {% block main %}
 
         {% endblock main %}
