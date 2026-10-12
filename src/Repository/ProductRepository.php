@@ -190,7 +190,7 @@ class ProductRepository extends DataBase {
                         WHERE p.name LIKE :search
                         OR p.brand_name LIKE :search
                         OR p.description LIKE :search
-                        ORDER BY p.name
+                        ORDER BY p.name, p.description
                 ";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute([

@@ -27,6 +27,7 @@ class RouteConfig
         $this->addRoute('/register',HttpMethod::POST,[AuthController::class, 'register']);
         $this->addRoute('/products',HttpMethod::GET,[ProductController::class, 'getPageProducts']);
         $this->addRoute('/show',HttpMethod::GET,[ProductController::class, 'show']);
+        $this->addRoute('/search',HttpMethod::GET,[ProductController::class, 'search']);
     }
     public function getRoutes() : array
     {

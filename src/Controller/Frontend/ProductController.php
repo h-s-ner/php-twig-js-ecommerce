@@ -14,9 +14,20 @@ class ProductController
     )
     {}
 
-    public function search(string $search)
+    public function search()
     {
-        return $this->productService->getProductsBySearch($search);
+        if (!isset($_GET['query']))
+        {
+            header('Location: /');
+            exit;
+        }
+        $search = $_GET['query'];
+       $products = $this->productService->getProductsBySearch($search);
+        return $this->view->render('search/index.html.twig',
+            [
+                'products' => $products
+            ]
+        );
     }
 
     public function show()

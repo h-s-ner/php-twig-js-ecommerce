@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+<div class="container-xxl mt-4 p-2 p-md-5 position-relative">
+    <div class="row">
+            {% include 'includes/_products.html.twig' with { products } %}
+    </div>
+ </div>
+
+{% endblock main %}
