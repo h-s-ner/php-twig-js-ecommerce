@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+<div class="container-xxl mt-4 p-2 p-md-5 position-relative">
+    <div class="row">
+            {% include 'includes/_pagination.html.twig' with { page, pageCount } %}
+            {% include 'includes/_products.html.twig' with { products } %}
+
+        {#
+            TO DO
+            <aside id="order-aside" class="mt-4 card col-md-2 d-none d-md-block order-block position-sticky vh-100">Your Order </aside>
+        #}
+    </div>
+ </div>
+
+{% endblock main %}

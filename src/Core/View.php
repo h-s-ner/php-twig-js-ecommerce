@@ -40,6 +40,10 @@ class View
         },
         ['is_safe' => ['html']]
         ));
+        // asset
+        $this->twig->addFunction(new TwigFunction('asset', function ($path) {
+            return '/assets/' . $path;
+        }));
     }
 }
 ?>

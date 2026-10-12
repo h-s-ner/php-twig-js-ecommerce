@@ -1,8 +1,9 @@
 <?php
 namespace App\Router;
 
-use App\Controller\HomeController;
-use App\Controller\AuthController;
+use App\Controller\Frontend\HomeController;
+use App\Controller\Frontend\AuthController;
+use App\Controller\Frontend\ProductController;
 use App\Enum\HttpMethod;
 
 class RouteConfig
@@ -24,6 +25,8 @@ class RouteConfig
         $this->addRoute('/logout',HttpMethod::POST,[AuthController::class,'logout']);
         $this->addRoute('/register',HttpMethod::GET,[AuthController::class, 'registerIndex']);
         $this->addRoute('/register',HttpMethod::POST,[AuthController::class, 'register']);
+        $this->addRoute('/products',HttpMethod::GET,[ProductController::class, 'getPageProducts']);
+        $this->addRoute('/show',HttpMethod::GET,[ProductController::class, 'show']);
     }
     public function getRoutes() : array
     {

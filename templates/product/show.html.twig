@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+
+{# include 'includes/_categories.html.twig'#}
+
+<div class="container py-5">
+    <div class="product-detail bg-body rounded-4 shadow-sm overflow-hidden">
+        <div class="row g-0">
+
+            {# Product image #}
+            <div class="col-lg-6 product-image-wrapper">
+                <div class="product-image-container">
+                    {% if product.image %}
+                        <img
+                            src="{{ asset('images/' ~ product.image) }}"
+                            alt="{{ product.name }}"
+                            class="product-image"
+                        >
+                    {% else %}
+                        <img
+                            src="{{ asset('images/default.png') }}"
+                            alt="{{ product.name }}"
+                            class="product-image"
+                        >
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Product information #}
+            <div class="col-lg-6">
+                <div class="product-info p-4 p-lg-5">
+
+                    <span class="badge text-bg-light rounded-pill px-3 py-2 mb-3">
+                        Product details
+                    </span>
+
+                    <h1 class="display-5 fw-bold mb-3">
+                        {{ product.name }}
+                    </h1>
+
+                    <div class="product-price mb-4">
+                        {{ product.price|number_format(2, ',', '.') }} €
+                    </div>
+
+                    <hr class="opacity-25 mb-4">
+
+                    <h6 class="text-uppercase text-body-secondary fw-semibold small mb-3">
+                        Description
+                    </h6>
+
+                    <p class="product-description text-body-secondary mb-4">
+                        {{ product.description }}
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3 mt-auto">
+                        <a href="/"
+                           class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                            <i class="bi bi-arrow-left me-2"></i>
+                            Back
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    .product-detail {
+        border: 1px solid var(--bs-border-color);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .product-detail:hover {
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .product-image-wrapper {
+        background: var(--bs-tertiary-bg);
+    }
+
+    .product-image-container {
+        height: 100%;
+        min-height: 420px;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 420px;
+        object-fit: contain;
+        border-radius: 1rem;
+        transition: transform 0.4s ease;
+    }
+
+    .product-image-container:hover .product-image {
+        transform: scale(1.04);
+    }
+
+    .product-info {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .product-price {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        color: var(--bs-primary);
+    }
+
+    .product-description {
+        line-height: 1.8;
+        white-space: pre-line;
+    }
+
+
+    @media (max-width: 767.98px) {
+        .product-image-container {
+            min-height: 280px;
+            padding: 1.5rem;
+        }
+
+        .product-image {
+            height: 280px;
+        }
+
+        .product-info {
+            min-height: auto;
+        }
+    }
+</style>
+{% endblock main %}

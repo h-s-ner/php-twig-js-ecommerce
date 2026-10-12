@@ -1,0 +1,59 @@
+{% if page is defined and pageCount is defined and pageCount > 0 %}
+<nav aria-label="Page navigation" class="my-4">
+  <ul class="pagination fancy-pagination justify-content-center align-items-center flex-wrap gap-2">
+  {# Previous #}
+    <li class="page-item {% if page <= 1 %}disabled{% endif %}">
+    {% if page <= 1 %}
+      <span class="page-link" aria-disabled="true">
+        <i class="bi bi-chevron-left"></i>
+        <span class="d-none d-sm-inline ms-1">
+          Previous
+        </span>
+      </span>
+    {% else %}
+      <a class="page-link" href="?{{ query|merge({'page': page - 1})|url_encode }}" aria-label="Previous page">
+        <i class="bi bi-chevron-left"></i>
+        <span class="d-none d-sm-inline ms-1">
+          Previous
+        </span>
+      </a>
+    {% endif %}
+    </li>
+    {# Page numbers #}
+    {% for i in 1..pageCount %}
+      {% if i == 1 or i == pageCount or (i >= page - 2 and i <= page + 2) %}
+        <li class="page-item {% if i == page %}active{% endif %}">
+        {% if i == page %}
+          <span class="page-link" aria-current="page">{{ i }}</span>
+        {% else %}
+          <a class="page-link" href="?{{ query|merge({'page': i})|url_encode }}"> {{ i }} </a>
+        {% endif %}
+        </li>
+      {% elseif (i == 2 and page > 3) or (i == pageCount - 1 and page < pageCount - 2) %}
+        <li class="page-item disabled"> <span class="page-link dots">…</span> </li>
+      {% endif %}
+    {% endfor %}
+    {# Next #}
+    <li class="page-item {% if page >= pageCount %}disabled{% endif %}">
+    {% if page >= pageCount %}
+      <span class="page-link" aria-disabled="true">
+        <span class="d-none d-sm-inline me-1">
+          Next
+        </span>
+        <i class="bi bi-chevron-right"></i>
+      </span>
+    {% else %}
+      <a class="page-link"
+        href="?{{ query|merge({'page': page + 1})|url_encode }}"
+        aria-label="Next page"
+      >
+        <span class="d-none d-sm-inline me-1">
+          Next
+        </span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+    {% endif %}
+    </li>
+  </ul>
+</nav>
+{% endif %}
