@@ -4,7 +4,7 @@ namespace App\Repository;
 use App\DB\Database;
 use App\Entity\Product;
 use \PDO;
-class ProductRepository extends DataBase {
+class ProductRepository extends Database {
 
         /**
          * @return Product[]
