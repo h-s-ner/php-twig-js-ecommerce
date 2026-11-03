@@ -16,8 +16,9 @@ Class Database{
     {
         $this->connect();
     }
-    // protect damit nur in class und subclass verwendet werden kann
-    private function connect(): \PDO{
+
+    private function connect(): \PDO
+    {
         $this->init_db();
         $this->conn = new \PDO(
             "mysql:host=$this->db_host;dbname=$this->db_name",
@@ -30,6 +31,7 @@ Class Database{
         );
         return $this->conn;
     }
+
     private function init_db(): void {
         $dotenv = Dotenv::createImmutable(__DIR__.'/../../','.env');
         $dotenv->load();
