@@ -2,10 +2,17 @@
 namespace App\Model;
 
 use App\DB\Database;
+use PDO;
 
 Class AuthModel extends Database {
 
-    public function register($fname, $lname, $phone, $email, $hashPassword):void
+    public function register(
+        string $fname,
+        string $lname,
+        string $phone,
+        string $email,
+        string $hashPassword
+    ):void
     {
         $sql = "INSERT INTO users(fname,lname,phone,email,password)
                 values (:fname,:lname,:phone,:email,:password)";
@@ -22,24 +29,19 @@ Class AuthModel extends Database {
     public function getPasswordHash(int $userId): string
     {
         $sql = "SELECT password FROM users WHERE id = :id";
-
-        $stmt = $this->conn->prepare($sql);
-
-        $stmt->bindValue(':id', $userId);
-
-        $stmt->execute();
-
-        return $stmt->fetchColumn(); // diret hashString
+        $ps = $this->conn->prepare($sql);
+        $ps->bindValue(':id', $userId,PDO::PARAM_INT);
+        $ps->execute();
+        return $ps->fetchColumn(); // diret hashString
     }
 
     public function updatePassword(int $userId, string $newHashedPassword): bool
     {
         $sql = "UPDATE users SET password = :password WHERE id = :id";
-          $ps = $this->conn->prepare($sql);
-        return $ps->execute([
-            ':password' => $newHashedPassword,
-            ':id' => $userId
-        ]);
+        $ps = $this->conn->prepare($sql);
+        $ps->bindValue(':id', $userId,PDO::PARAM_INT);
+        $ps->bindValue(':password', $newHashedPassword);
+        return $ps->execute();
     }
 }
 

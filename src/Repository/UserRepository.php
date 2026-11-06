@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-use APP\DB\Database;
+use App\DB\Database;
 use App\Entity\User;
 use \PDO;
 
@@ -11,7 +11,7 @@ class UserRepository extends Database
     {
         $sql = "SELECT * FROM users WHERE id= :id";
         $ps = $this->conn->prepare($sql);
-        $ps->bindParam(':id',$id);
+        $ps->bindParam(':id',$id,PDO::PARAM_INT);
         $ps->execute();
         $row = $ps->fetch();
         if ($row){
@@ -39,7 +39,7 @@ class UserRepository extends Database
      * @return User[]
     */
     public function findAll():array{
-        $sql = "SELECT id, fname, lname, email, active FROM users" ;
+        $sql = "SELECT id, fname, lname, email, active, phone, role FROM users" ;
         $ps = $this->conn->prepare($sql);
         $ps->execute();
         $rows = $ps->fetchAll();
@@ -56,23 +56,21 @@ class UserRepository extends Database
         string $phone
     )
     {
-        $sql = "Update users set fname = :fname, lname = :lname, phone = :phone,  WHERE id= :id";
+        $sql = "Update users set fname = :fname, lname = :lname, phone = :phone  WHERE id= :id";
         $ps = $this->conn->prepare($sql);
         $ps->bindValue(':id', $id, PDO::PARAM_INT);
-        $ps->execute([
-            ':fname' => $fname,
-            ':lname' => $lname,
-            ':phone' => $phone,
-        ]);
+        $ps->bindValue(':fname',$fname);
+        $ps->bindValue(':lname',$lname);
+        $ps->bindValue( ':phone', $phone);
+        $ps->execute();
     }
 
-    public function updateUserStatus(int $id, $status){
+    public function updateUserStatus(int $id, int $status){
         $sql = "Update users set active=:active WHERE id= :id";
         $ps = $this->conn->prepare($sql);
         $ps->bindValue(':id', $id, PDO::PARAM_INT);
-        $ps->execute([
-            ':active' => $status
-        ]);
+        $ps->bindValue(':active',$status,PDO::PARAM_INT);
+        $ps->execute();
 
     }
 }
