@@ -40,6 +40,9 @@ class View
         },
         ['is_safe' => ['html']]
         ));
+        $this->twig->addFunction(new TwigFunction('csrf_token', function($key){
+            return Csrf::getCsrfToken($key);
+        }));
         // asset
         $this->twig->addFunction(new TwigFunction('asset', function ($path) {
             return '/assets/' . $path;
